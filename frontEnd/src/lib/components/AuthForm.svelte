@@ -1,6 +1,5 @@
 <script>
   import FormInput from './FormInput.svelte';
-  import { enhance } from '$app/forms';
   
   export let action;
   
@@ -9,21 +8,61 @@
   let confirmPassword = '';
   let error = '';
   
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event.preventDefault();
+    error = '';
+    
     try {
       if (action === 'signup' && password !== confirmPassword) {
         error = 'Passwords do not match';
         return;
       }
+
+      const endpoint = action === 'login' ? '/api/login' : '/api/signup';
+      const requestBody = action === 'login' 
+        ? { email, password } 
+        : { user: { email, password } };
+
+      const response = await fetch(`http://localhost:4000${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(requestBody),
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        let errorMessage = 'Request failed';
+        
+        if (data.error) {
+          errorMessage = data.error;
+        } else if (data.errors) {
+          if (typeof data.errors === 'string') {
+            errorMessage = data.errors;
+          } else {
+            const firstError = Object.values(data.errors)[0];
+            errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
+          }
+        }
+        
+        throw new Error(errorMessage);
+      }
+
+      console.log('Success:', data);
+      window.location.href = '/';
       
-      // Form submission will be handled by SvelteKit's form actions
     } catch (err) {
       error = err.message;
+      console.error('API Error:', err);
     }
   }
 </script>
 
-<form method="POST" use:enhance on:submit={handleSubmit}>
+<form on:submit={handleSubmit}>
   <FormInput 
     type="email" 
     name="email" 

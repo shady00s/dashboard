@@ -1,5 +1,5 @@
 export async function login(email, password) {
-  const response = await fetch('/api/auth/login', {
+  const response = await fetch('http://localhost:4000/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export async function login(email, password) {
 }
 
 export async function signup(email, password) {
-  const response = await fetch('/api/auth/signup', {
+  const response = await fetch('http://localhost:4000/api/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export async function signup(email, password) {
 }
 
 export async function logout() {
-  const response = await fetch('/api/auth/logout', {
+  const response = await fetch('http://localhost:4000/api/logout', {
     method: 'POST'
   });
   

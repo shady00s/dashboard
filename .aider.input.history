@@ -181,3 +181,193 @@
 
 # 2025-05-10 15:02:51.077545
 +y
+
+# 2025-05-10 15:05:31.166699
++n
+
+# 2025-05-10 15:05:44.189856
++/add backEnd\*
+
+# 2025-05-10 15:05:49.708285
++/architect Create Authentication API end points for signup and login users
+
+# 2025-05-10 15:09:27.701760
++y
+
+# 2025-05-10 15:12:03.730848
++/architect remove argon2_elixir and make the password are plain text, and remove backEnd\lib\backEnd_web\ 
+
+# 2025-05-10 15:13:36.156554
++y
+
+# 2025-05-10 15:17:52.177160
++/map-refresh
+
+# 2025-05-10 15:18:03.450295
++[error] Postgrex.Protocol (#PID<0.445.0>) failed to connect: ** (Postgrex.Error) FATAL 3D000 (invalid_catalog_name) database "backend_dev" does not exist    fix this error please
+
+# 2025-05-10 15:19:15.042479
++y
+
+# 2025-05-10 15:30:38.152114
++/dr
+
+# 2025-05-10 15:30:42.866813
++/architect
+
+# 2025-05-10 15:31:21.765131
++/add frontEnd\src\lib
+
+# 2025-05-10 15:33:04.565085
++now make sure that login form calls this endpoint http://localhost:4000/api/login and signup form calls this endpoint http://localhost:4000/api/signup
+
+# 2025-05-10 15:33:07.561804
++y
+
+# 2025-05-10 15:38:14.915216
++it returns this error {"type":"error","error":{"message":"Method Not Allowed"}}
+
+# 2025-05-10 15:39:59.625458
++signup:1 Access to fetch at 'http://localhost:4000/api/signup' from origin 'http://localhost:5173' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. fix this error 
+
+# 2025-05-10 15:40:03.786640
++n
+
+# 2025-05-10 15:40:39.195757
++y
+
+# 2025-05-10 15:44:45.585199
++
++
++Error: SyntaxError: Unexpected token '#', "# Phoenix."... is not valid JSON fix this error
+
+# 2025-05-10 15:46:09.208534
++y
+
+# 2025-05-10 15:49:18.266846
++now the errors are shown as [object Object]
+
+# 2025-05-10 15:51:33.394128
++(Postgrex.Error) ERROR 23502 (not_null_violation) null value in column "id" violates not-null constraint
++    
++        table: users
++        column: id fix this issue
+
+# 2025-05-10 15:52:03.211986
++y
+
+# 2025-05-10 15:54:38.982536
++make user id auto incremented 
+
+# 2025-05-10 15:55:46.931973
++y
+
+# 2025-05-10 15:55:57.797255
++/map-refresh
+
+# 2025-05-10 15:58:56.193048
++Code:
++
++`lib/ecto/adapters/sql.ex`
++
++    1091     defp raise_sql_call_error(%DBConnection.OwnershipError{} = err) do
++    1092       message = err.message &lt;&gt; &quot;\nSee Ecto.Adapters.SQL.Sandbox docs for more information.&quot;
++    1093       raise %{err | message: message}
++    1094     end
++    1095   
++    1096>    defp raise_sql_call_error(err), do: raise(err)
++    1097   
++    1098     @doc false
++    1099     def reduce(adapter_meta, statement, params, opts, acc, fun) do
++    1100       %{pid: pool, telemetry: telemetry, sql: sql, opts: default_opts} = adapter_meta
++    1101       opts = with_log(telemetry, params, opts ++ default_opts)
++    
++`lib/ecto/repo/schema.ex`
++
++    832     defp apply(_user_changeset, _adapter, :noop, _args) do
++    833       {:ok, []}
++    834     end
++    835   
++    836     defp apply(user_changeset, adapter, action, args) do
++    837>      case apply(adapter, action, args) do
++    838         {:ok, values} -&gt;
++    839           {:ok, values}
++    840   
++    841         {:invalid, constraints} -&gt;
++    842           {:error, constraints_to_errors(user_changeset, action, constraints)}
++    
++`lib/ecto/repo/schema.ex`
++
++    411           change_values = Enum.map(changes, &amp;elem(&amp;1, 1))
++    412           autogen_values = Enum.map(autogen, &amp;elem(&amp;1, 1))
++    413           opts = Keyword.put(opts, :cast_params, change_values ++ autogen_values ++ cast_extra ++ conflict_cast_params)
++    414           args = [adapter_meta, schema_meta, dump_changes, on_conflict, return_sources, opts]
++    415   
++    416>          case apply(user_changeset, adapter, :insert, args) do
++    417             {:ok, values} -&gt;
++    418               values = dump_extra ++ values
++    419   
++    420               changeset
++    421               |&gt; load_changes(:loaded, return_types, values, embeds, autogen, adapter, schema_meta)
++    
++`lib/backEnd_web/controllers/registration_controller.ex`
++
++    2     use BackEndWeb, :controller
++    3     alias BackEnd.Accounts
++    4     alias BackEnd.Accounts.User
++    5   
++    6     def create(conn, %{&quot;user&quot; =&gt; user_params}) do
++    7>      case Accounts.register_user(user_params) do
++    8         {:ok, user} -&gt;
++    9           conn
++    10           |&gt; put_status(:created)
++    11           |&gt; json(%{status: &quot;success&quot;, token: generate_token(user), user_id: user.id})
++    12   
++    
++`lib/backEnd_web/controllers/registration_controller.ex`
++
++    1>  defmodule BackEndWeb.RegistrationController do
++    2     use BackEndWeb, :controller
++    3     alias BackEnd.Accounts
++    4     alias BackEnd.Accounts.User
++    5   
++    6     def create(conn, %{&quot;user&quot; =&gt; user_params}) do
++    
++`lib/backEnd_web/controllers/registration_controller.ex`
++
++    1>  defmodule BackEndWeb.RegistrationController do
++    2     use BackEndWeb, :controller
++    3     alias BackEnd.Accounts
++    4     alias BackEnd.Accounts.User
++    5   
++    6     def create(conn, %{&quot;user&quot; =&gt; user_params}) do
++    
++`lib/phoenix/router.ex`
++
++    479           :telemetry.execute([:phoenix, :router_dispatch, :stop], measurements, metadata)
++    480           halted_conn
++    481   
++    482         %Plug.Conn{} = piped_conn -&gt;
++    483           try do
++    484>            plug.call(piped_conn, plug.init(opts))
++    485           else
++    486             conn -&gt;
++    487               measurements = %{duration: System.monotonic_time() - start}
++    488               metadata = %{metadata | conn: conn}
++    489               :telemetry.execute([:phoenix, :router_dispatch, :stop], measurements, metadata)
++    
++`lib/backEnd_web/endpoint.ex`
++
++    1>  defmodule BackEndWeb.Endpoint do
++    2     use Phoenix.Endpoint, otp_app: :backEnd
++    3   
++    4     plug CORSPlug,
++    5       origin: [&quot;http://localhost:5173&quot;],
++    6       methods: [&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;],
++    Failing row contains (null, shady@test.com, null, 2025-05-10 12:56:16, 2025-05-10 12:56:16). fix this issue
+
+# 2025-05-10 15:58:59.854826
++n
+
+# 2025-05-10 15:59:57.613437
++y
