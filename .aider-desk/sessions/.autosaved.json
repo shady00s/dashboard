@@ -1,0 +1,37 @@
+{
+  "contextMessages": [
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "assistant",
+      "content": "I currently don't see any code or files to analyze. I'm ready to help when you share code snippets or specific questions about programming concepts. \n\nLet me know what you'd like me to examine or explain, and I'll do my best to assist you with code analysis, debugging, or technical explanations."
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    }
+  ],
+  "contextFiles": []
+}
