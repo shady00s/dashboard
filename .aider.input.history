@@ -58,3 +58,126 @@
 
 # 2025-05-10T10:53:09.396Z
 +what do you see?
+
+# 2025-05-10T10:56:19.930Z
++what do you see?
+
+# 2025-05-10T10:56:42.501Z
++what do you see?
+
+# 2025-05-10 13:57:26.367954
++n
+
+# 2025-05-10 13:57:42.071229
++What do you see?
+
+# 2025-05-10 13:58:09.000934
++/map
+
+# 2025-05-10 13:58:58.712240
++/architect
+
+# 2025-05-10 14:08:36.989589
++/add
+
+# 2025-05-10 14:08:56.796017
++/add frontEnd/*
+
+# 2025-05-10 14:10:14.960951
++Create a plan for Authetniation feature that contains: signup and login screens and create it in separated files.
+
+# 2025-05-10 14:12:23.879669
++y
+
+# 2025-05-10 14:15:50.969989
++create a landing page in the root path that contains the following:1. navbar that contains login button, signup button in the top left2. center dev with title "Your stock watcher" 
+
+# 2025-05-10 14:18:00.466016
++n
+
+# 2025-05-10 14:18:11.043350
++/a
+
+# 2025-05-10 14:18:24.108007
++/add backEnd/*
+
+# 2025-05-10 14:18:35.128613
++/architect
+
+# 2025-05-10 14:21:05.467860
++create authentication feature that contains signup and login and add Authentication token and refresh token, the auth token is expired after 1 min and the refresh token is expired after 1 day
+
+# 2025-05-10 14:25:43.198671
++y
+
+# 2025-05-10 14:27:51.639752
++/clear
+
+# 2025-05-10 14:28:00.217847
++/drop
+
+# 2025-05-10 14:28:04.174470
++/add
+
+# 2025-05-10 14:28:56.743761
++/add frontEnd\src\lib\*
+
+# 2025-05-10 14:29:12.337060
++adjust the auth_controller.ex
+
+# 2025-05-10 14:29:15.971566
++y
+
+# 2025-05-10 14:34:30.154500
++could not compile dependency :argon2_elixir, "mix compile" failed. Errors may have been logged above. You can recompile this dependency with "mix deps.compile argon2_elixir --force", update it with "mix deps.update argon2_elixir" or clean it with "mix deps.clean argon2_elixir" fix this issue
+
+# 2025-05-10 14:37:39.724428
++** (Mix) Cannot compile dependency :argon2_elixir because it isn't available, run "mix deps.get" first
+
+# 2025-05-10 14:40:15.237938
++y
+
+# 2025-05-10 14:42:56.851967
++remove argon2 implementation
+
+# 2025-05-10 14:44:23.358046
++y
+
+# 2025-05-10 14:48:28.550962
++/run  mix setup mix phx.server
+
+# 2025-05-10 14:48:41.109695
++y
+
+# 2025-05-10 14:49:52.539691
++/run
+
+# 2025-05-10 14:50:08.519489
++/run mix phx.server
+
+# 2025-05-10 14:54:43.736926
++n
+
+# 2025-05-10 14:54:57.616412
++/add
+
+# 2025-05-10 14:55:25.743296
++/add backEnd\auth\*
+
+# 2025-05-10 14:56:05.872949
++/add backEnd\lib\backEnd\auth\token.ex backEnd\lib\backEnd\accounts\*
+
+# 2025-05-10 14:59:57.638333
++/drop
+
+# 2025-05-10 15:00:12.832129
++/add backEnd\*
+
+# 2025-05-10 15:00:41.171974
++Create Authentication API end points for signup and login users
+
+# 2025-05-10 15:01:16.382561
++/architect Create Authentication API end points for signup and login users
+
+# 2025-05-10 15:02:51.077545
++y

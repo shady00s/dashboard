@@ -31,7 +31,200 @@
     {
       "role": "user",
       "content": "what do you see?"
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "assistant",
+      "content": "Understood! I currently don't see any files to analyze or modify. When you share:\n\n1. A specific request for changes\n2. The relevant file(s) that need modification\n\nI will:\n- Only suggest changes to files you explicitly share\n- Always use the exact *file listing* format you specified\n- Include the complete file content in any suggested changes\n- Never skip or abbreviate file contents\n- Wait for your confirmation before proceeding with any modifications\n\nPlease share what you'd like me to help with, and I'll follow these guidelines precisely. I'm ready to assist with code changes when you provide the files and requirements."
+    },
+    {
+      "role": "user",
+      "content": "what do you see?"
+    },
+    {
+      "role": "assistant",
+      "content": "Understood! Here's what I see right now:\n\n1. I don't currently have any files loaded for editing\n2. I'm ready to help when you:\n   - Share specific files that need modification\n   - Make a concrete change request\n3. I will strictly follow your file listing format requirements:\n   - Full file paths\n   - Complete file contents\n   - No omissions or abbreviations\n   - Clear formatting as specified\n\nWhen you're ready to proceed, please:\n1. Share the file(s) that need changes\n2. Specify exactly what modifications you'd like made\n\nI'll then respond with properly formatted file listings containing your requested changes, following all your requirements precisely. No changes will be suggested until you explicitly share files for editing."
     }
   ],
-  "contextFiles": []
+  "contextFiles": [
+    {
+      "path": "backEnd\\.formatter.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\.gitignore",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\README.md",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\assets\\css\\app.css",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\assets\\js\\app.js",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\assets\\tailwind.config.js",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\assets\\vendor\\topbar.js",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\config\\config.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\config\\dev.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\config\\prod.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\config\\runtime.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\config\\test.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd\\application.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd\\mailer.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd\\repo.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\components\\core_components.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\components\\layouts.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\components\\layouts\\app.html.heex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\components\\layouts\\root.html.heex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\controllers\\error_html.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\controllers\\error_json.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\controllers\\page_controller.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\controllers\\page_html.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\controllers\\page_html\\home.html.heex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\endpoint.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\gettext.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\router.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\lib\\backEnd_web\\telemetry.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\mix.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\mix.lock",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\priv\\gettext\\en\\LC_MESSAGES\\errors.po",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\priv\\gettext\\errors.pot",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\priv\\repo\\migrations\\.formatter.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\priv\\repo\\seeds.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\priv\\static\\images\\logo.svg",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\priv\\static\\robots.txt",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\test\\backEnd_web\\controllers\\error_html_test.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\test\\backEnd_web\\controllers\\error_json_test.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\test\\backEnd_web\\controllers\\page_controller_test.exs",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\test\\support\\conn_case.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\test\\support\\data_case.ex",
+      "readOnly": false
+    },
+    {
+      "path": "backEnd\\test\\test_helper.exs",
+      "readOnly": false
+    }
+  ]
 }
