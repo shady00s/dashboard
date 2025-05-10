@@ -1,32 +1,34 @@
 import Config
 
+# Load .env file
+if File.exists?(".env") do
+  File.read!(".env")
+  |> String.split("\n")
+  |> Enum.each(fn line ->
+    if String.contains?(line, "=") do
+      [key, value] = String.split(line, "=", parts: 2)
+      System.put_env(String.trim(key), String.trim(value))
+    end
+  end)
+end
+
 # Configure your database
 config :backEnd, BackEnd.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "backend_dev",
+  database: "backEnd_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10,
-  migration_primary_key: [id: :uuid, type: :binary_id],
-  migration_timestamps: [type: :utc_datetime],
-  start_apps_before_migration: [:ssl]
+  pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
-#
-# The watchers configuration can be used to run external
-# watchers to your application. For example, we can use it
-# to bundle .js and .css sources.
 config :backEnd, BackEndWeb.Endpoint,
-  # Binding to loopback ipv4 address prevents access from other machines.
-  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  check_origin: false,
-  code_reloader: true,
   debug_errors: true,
-  secret_key_base: "UIHigp87GttxvlSDfJu2hufvAs0W5SHDaULSS1sSI7QU8Fr1QB5cMjIVVBuae/QV",
+  code_reloader: true,
+  check_origin: false,
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:backEnd, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:backEnd, ~w(--watch)]}
@@ -36,7 +38,7 @@ config :backEnd, BackEndWeb.Endpoint,
 config :backEnd, BackEndWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/backEnd_web/(controllers|live|components)/.*(ex|heex)$"
     ]
@@ -54,12 +56,3 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-config :phoenix_live_view,
-  # Include HEEx debug annotations as HTML comments in rendered markup
-  debug_heex_annotations: true,
-  # Enable helpful, but potentially expensive runtime checks
-  enable_expensive_runtime_checks: true
-
-# Disable swoosh api client as it is only required for production adapters.
-config :swoosh, :api_client, false

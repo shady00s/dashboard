@@ -7,7 +7,13 @@ defmodule BackEndWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_status(:ok)
-        |> json(%{status: "success", token: generate_token(user), user_id: user.id})
+        |> json(%{
+          status: "success",
+          token: generate_token(user),
+          user_id: user.id,
+          user: %{id: user.id, email: user.email},
+          redirectTo: "/homePage"
+        })
 
       {:error, _reason} ->
         conn

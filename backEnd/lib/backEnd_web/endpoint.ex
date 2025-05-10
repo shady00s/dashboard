@@ -15,6 +15,10 @@ defmodule BackEndWeb.Endpoint do
     same_site: "Lax"
   ]
 
+  socket "/socket", BackEndWeb.UserSocket,
+    websocket: [check_origin: ["http://localhost:5173"]],
+    longpoll: true
+
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]],
     longpoll: [connect_info: [session: @session_options]]

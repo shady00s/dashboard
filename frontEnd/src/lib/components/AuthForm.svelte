@@ -1,5 +1,8 @@
 <script>
   import FormInput from './FormInput.svelte';
+  import { goto } from '$app/navigation';
+  import { session } from '$lib/stores/session';
+  import { browser } from '$app/environment';
   
   export let action;
   
@@ -7,10 +10,12 @@
   let password = '';
   let confirmPassword = '';
   let error = '';
+  let isLoading = false;
   
   async function handleSubmit(event) {
     event.preventDefault();
     error = '';
+    isLoading = true;
     
     try {
       if (action === 'signup' && password !== confirmPassword) {
@@ -52,12 +57,16 @@
         throw new Error(errorMessage);
       }
 
-      console.log('Success:', data);
-      window.location.href = '/';
+      if (browser) {
+        session.update(s => ({ ...s, user: data.user || data }));
+      }
+      goto(data.redirectTo || '/homePage');
       
     } catch (err) {
       error = err.message;
       console.error('API Error:', err);
+    } finally {
+      isLoading = false;
     }
   }
 </script>
@@ -93,8 +102,12 @@
     <p class="error">{error}</p>
   {/if}
   
-  <button type="submit">
-    {action === 'login' ? 'Log In' : 'Sign Up'}
+  <button type="submit" disabled={isLoading}>
+    {#if isLoading}
+      Loading...
+    {:else}
+      {action === 'login' ? 'Log In' : 'Sign Up'}
+    {/if}
   </button>
 </form>
 
@@ -113,7 +126,12 @@
     cursor: pointer;
   }
   
-  button:hover {
+  button:hover:not(:disabled) {
     background: #4338ca;
+  }
+
+  button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
   }
 </style>

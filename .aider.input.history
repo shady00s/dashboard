@@ -380,3 +380,109 @@
 
 # 2025-05-10 16:28:50.345146
 +/drop
+
+# 2025-05-10 16:31:37.504267
++/add
+
+# 2025-05-10 16:32:10.667254
++/add frontEnd\src\routes\*
+
+# 2025-05-10 16:34:26.527561
++create a home page with route /home that the user will be redirected automatically  after login/signup and cannot be accessable if user not logged in, create it in folder called homePage that contain the screen and the custom components for it
+
+# 2025-05-10 16:35:37.763338
++y
+
+# 2025-05-10 16:39:52.386361
++you didn't create the homePage folder that contains the home screen
+
+# 2025-05-10 16:42:38.392357
++y
+
+# 2025-05-10 16:43:10.045519
++app.js:22 SyntaxError: The requested module '/node_modules/@sveltejs/kit/src/runtime/app/stores.js?v=4f0467c3' does not provide an export named 'session' (at +layout.svelte:2:12) fix this issue please
+
+# 2025-05-10 16:44:07.944182
++y
+
+# 2025-05-10 16:53:47.692860
++/drop
+
+# 2025-05-10 16:57:25.927360
++/add frontEnd\src\routes\homePage\* backEnd\lib\backEnd_web\controllers\* 
+
+# 2025-05-10 17:00:34.366117
++Finnhub API Integration
++
++Implement authentication using Finnhub API keys (stored in Phoenix runtime.exs).
++
++Build a reusable FinnhubClient module to:
++
++Fetch stock quotes/symbols via REST (GET /quote?symbol=...).
++
++Establish WebSocket connections to Finnhubs ws.finnhub.io for real-time updates.
++
++Handle rate limits (e.g., 60 RPM for free tier) and errors (e.g., 429 Too Many Requests).
+
+# 2025-05-10 17:02:03.374888
++y
+
+# 2025-05-10 17:04:21.725407
++GenServer for WebSocket Management
++
++Create a StockWSManager GenServer to:
++
++Maintain WebSocket connections to Finnhub for subscribed stocks.
++
++Handle reconnections on failure (e.g., :on_disconnect callback).
++
++Broadcast updates to Phoenix Channels for frontend consumption.
++
++Design a dynamic supervision tree to scale WebSocket processes per stock/category.
+
+# 2025-05-10 17:06:07.554489
++y
+
+# 2025-05-10 17:10:46.153703
++/drop
+
+# 2025-05-10 17:11:24.945032
++/add frontEnd\src\routes\homePage\* 
+
+# 2025-05-10 17:11:58.977172
++Phoenix Socket Connection
++
++Initialize a Phoenix Socket connection in Svelte (use phoenix.js or svelte-phoenix).
++
++Connect to the backend WebSocket endpoint (ws://localhost:4000/socket).
++
++Handle connection status (e.g., "connecting," "connected," "disconnected") with UI indicators.
+
+# 2025-05-10 17:14:47.659726
++y
+
+# 2025-05-10 17:15:00.763215
++Channel Subscription & Data Handling
++
++Join the stock:updates channel and subscribe to topics (e.g., tech, favorites, or custom categories).
++
++Listen for new_price events containing stock data (symbol, price, timestamp).
++
++Update Svelte stores/reactivity system in real-time without UI lag.
+
+# 2025-05-10 17:16:38.523580
++y
+
+# 2025-05-10 17:29:54.091466
++* (Mix) Could not start application hammer: Hammer.Application.start(:normal, []) returned an error: shutdown: failed to start child: :hammer_backend_single_pool
++    ** (EXIT) an exception was raised:
++        ** (MatchError) no match of right hand side value: {:error, {%RuntimeError{message: "Missing required config: expiry_ms"}, [{Hammer.Backend.ETS, :init, 1, [file: ~c"lib/hammer/backend/ets.ex", line: 168]}, {:gen_server, :init_it, 2, [file: ~c"gen_server.erl", line: 2229]}, {:gen_server, :init_it, 6, [file: ~c"gen_server.erl", line: 2184]}, {:proc_lib, :init_p_do_apply, 3, [file: ~c"proc_lib.erl", line: 329]}]}}
++            (poolboy 1.5.2) c:/Users/Administrator/Desktop/dashboard/backEnd/deps/poolboy/src/poolboy.erl:283: :poolboy.new_worker/1
++            (poolboy 1.5.2) c:/Users/Administrator/Desktop/dashboard/backEnd/deps/poolboy/src/poolboy.erl:304: :poolboy.prepopulate/3
++            (poolboy 1.5.2) c:/Users/Administrator/Desktop/dashboard/backEnd/deps/poolboy/src/poolboy.erl:153: :poolboy.init/3
++            (stdlib 6.2) gen_server.erl:2229: :gen_server.init_it/2
++            (stdlib 6.2) gen_server.erl:2184: :gen_server.init_it/6
++            (stdlib 6.2) proc_lib.erl:329: :proc_lib.init_p_do_apply/3
+
+# 2025-05-10 17:30:39.600845
++y

@@ -9,7 +9,8 @@ import Config
 
 config :backEnd,
   ecto_repos: [BackEnd.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  finnhub_api_key: "d0flqt9r01qr6dbssna0d0flqt9r01qr6dbssnag"
 
 # Configures the endpoint
 config :backEnd, BackEndWeb.Endpoint,
@@ -60,6 +61,10 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Configure Hammer for rate limiting
+config :hammer,
+  backend: {Hammer.Backend.ETS, [expiry_ms: 300_000, cleanup_interval_ms: 60_000]}
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

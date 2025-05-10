@@ -51,7 +51,14 @@ defmodule BackEnd.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:tesla, "~> 1.4"},
+      {:hammer, "~> 6.0"},
+      {:websockex, "~> 0.4"},
+      {:hackney, "~> 1.18"},
+      {:castore, "~> 1.0"},
+      {:httpoison, "~> 2.0"},
+      {:dotenv_parser, "~> 2.0", only: [:dev, :test]}
     ]
   end
 

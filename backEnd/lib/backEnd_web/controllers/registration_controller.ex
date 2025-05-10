@@ -8,7 +8,13 @@ defmodule BackEndWeb.RegistrationController do
       {:ok, user} ->
         conn
         |> put_status(:created)
-        |> json(%{status: "success", token: generate_token(user), user_id: user.id})
+        |> json(%{
+          status: "success",
+          token: generate_token(user),
+          user_id: user.id,
+          user: %{id: user.id, email: user.email},
+          redirectTo: "/homePage"
+        })
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
