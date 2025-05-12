@@ -12,13 +12,14 @@ defmodule BackEnd.Application do
       BackEnd.Repo,
       {DNSCluster, query: Application.get_env(:backEnd, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: BackEnd.PubSub},
+      {BackEndWeb.Tracker, [name: BackEndWeb.Tracker, pubsub_server: BackEnd.PubSub]},
       # Start the Finch HTTP client for sending emails
       {Finch, name: BackEnd.Finch},
       # Start a worker by calling: BackEnd.Worker.start_link(arg)
       # {BackEnd.Worker, arg},
       # Start to serve requests, typically the last entry
       BackEndWeb.Endpoint
-    ]
+     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

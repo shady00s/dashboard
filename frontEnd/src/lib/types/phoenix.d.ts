@@ -15,11 +15,13 @@ declare module 'phoenix' {
 
   class Channel {
     constructor(topic: string, params?: Record<string, any>, socket?: Socket);
-    join(timeout?: number): Push;
+    join(params?: Record<string, any>, timeout?: number): Push;
     on(event: string, callback: (payload: any) => void): void;
     off(event: string): void;
     push(event: string, payload: any, timeout?: number): Push;
     leave(timeout?: number): Push;
+    state: string;
+    joinTimer?: NodeJS.Timeout;
   }
 
   class Push {

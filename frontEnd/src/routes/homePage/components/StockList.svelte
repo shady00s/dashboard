@@ -21,13 +21,17 @@
         });
       },
       onJoin: (resp) => {
-        console.log('Joined stock channel - Response:', resp);
-        if (resp.stocks) {
-          console.log('Received initial stocks:', resp.stocks);
-          stocks.set(resp.stocks);
-        } else {
-          console.error('No stocks received in join response');
-          // Initialize with empty array if no stocks received
+        console.log('Joined stock channel - Raw Response:', resp);
+        try {
+          if (resp && resp.stocks) {
+            console.log('Received initial stocks:', resp.stocks);
+            stocks.set(resp.stocks);
+          } else {
+            console.error('Invalid join response format:', resp);
+            stocks.set([]);
+          }
+        } catch (error) {
+          console.error('Error processing join response:', error);
           stocks.set([]);
         }
       },

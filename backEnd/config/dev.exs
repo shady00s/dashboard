@@ -1,17 +1,5 @@
 import Config
 
-# Load .env file
-if File.exists?(".env") do
-  File.read!(".env")
-  |> String.split("\n")
-  |> Enum.each(fn line ->
-    if String.contains?(line, "=") do
-      [key, value] = String.split(line, "=", parts: 2)
-      System.put_env(String.trim(key), String.trim(value))
-    end
-  end)
-end
-
 # Configure your database
 config :backEnd, BackEnd.Repo,
   username: "postgres",
@@ -47,8 +35,18 @@ config :backEnd, BackEndWeb.Endpoint,
 # Enable dev routes for dashboard and mailbox
 config :backEnd, dev_routes: true
 
-# Do not include metadata nor timestamps in development logs
-config :logger, :console, format: "[$level] $message\n"
+# Configure logger for development
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  level: :debug,
+  metadata: [:module, :function, :line]
+
+# Enable debug logging for our application
+config :backEnd, BackEndWeb.StockChannel,
+  log: true
+
+config :backEnd, BackEnd.StockPoller,
+  log: true
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

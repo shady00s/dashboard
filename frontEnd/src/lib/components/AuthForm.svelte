@@ -58,7 +58,9 @@
       }
 
       if (browser) {
-        session.update(s => ({ ...s, user: data.user || data }));
+        const user = data.user || data;
+        session.update(s => ({ ...s, user }));
+        localStorage.setItem('user_id', user.id);
       }
       goto(data.redirectTo || '/homePage');
       

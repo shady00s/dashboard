@@ -1,4 +1,11 @@
-export async function login(email, password) {
+import { setSession, clearSession } from '../stores/session';
+
+interface User {
+  id: string;
+  email: string;
+}
+
+export async function login(email: string, password: string): Promise<User> {
   const response = await fetch('http://localhost:4000/api/login', {
     method: 'POST',
     headers: {
@@ -12,10 +19,12 @@ export async function login(email, password) {
     throw new Error(errorData.message || 'Login failed');
   }
   
-  return response.json();
+  const user = await response.json();
+  setSession(user);
+  return user;
 }
 
-export async function signup(email, password) {
+export async function signup(email: string, password: string): Promise<User> {
   const response = await fetch('http://localhost:4000/api/signup', {
     method: 'POST',
     headers: {
@@ -29,10 +38,12 @@ export async function signup(email, password) {
     throw new Error(errorData.message || 'Signup failed');
   }
   
-  return response.json();
+  const user = await response.json();
+  setSession(user);
+  return user;
 }
 
-export async function logout() {
+export async function logout(): Promise<void> {
   const response = await fetch('http://localhost:4000/api/logout', {
     method: 'POST'
   });
@@ -40,4 +51,6 @@ export async function logout() {
   if (!response.ok) {
     throw new Error('Logout failed');
   }
+  
+  clearSession();
 }

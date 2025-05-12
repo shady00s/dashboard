@@ -1,64 +1,64 @@
-defmodule BackEnd.FinnhubClient do
-  @moduledoc """
-  A WebSocket client for connecting to Finnhub's real-time stock API.
-  """
-  use WebSockex
+defmodule BackEnd.StockPoller do
+  use GenServer
   require Logger
 
-  def start_link(parent_pid, url) do
-    WebSockex.start_link(url, __MODULE__, %{parent_pid: parent_pid})
+  @interval 1_000  # 1 second
+  @stocks ["AAPL", "GOOGL", "MSFT"]
+  @api_key System.get_env("FINNHUB_API_KEY")
+
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
-  def subscribe(client_pid, symbol) do
-    message = Jason.encode!(%{type: "subscribe", symbol: symbol})
-    WebSockex.send_frame(client_pid, {:text, message})
-  end
-
-  def unsubscribe(client_pid, symbol) do
-    message = Jason.encode!(%{type: "unsubscribe", symbol: symbol})
-    WebSockex.send_frame(client_pid, {:text, message})
-  end
-
-  # WebSockex callbacks
-  def handle_connect(_conn, state) do
-    Logger.info("Connected to Finnhub WebSocket")
+  def init(state) do
+    schedule_fetch()
     {:ok, state}
   end
 
-  def handle_frame({:text, msg}, state) do
-    case Jason.decode(msg) do
-      {:ok, %{"data" => data}} when is_list(data) ->
-        send(state.parent_pid, {:stock_update, data})
-        {:ok, state}
+  def handle_info(:fetch, state) do
+    Enum.each(@stocks, fn symbol ->
+      fetch_and_broadcast(symbol)
+    end)
 
-      {:ok, %{"type" => "ping"}} ->
-        # Handle ping message if needed
-        {:ok, state}
+    schedule_fetch()
+    {:noreply, state}
+  end
 
-      {:ok, other_msg} ->
-        Logger.debug("Received other message: #{inspect(other_msg)}")
-        {:ok, state}
+  defp schedule_fetch do
+    Process.send_after(self(), :fetch, @interval)
+  end
+
+  defp fetch_and_broadcast(symbol) do
+    url = "https://finnhub.io/api/v1/quote?symbol=#{symbol}&token=#{@api_key}"
+
+    case HTTPoison.get(url) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        case Jason.decode(body) do
+          {:ok, %{"c" => current_price, "pc" => previous_close}} ->
+            change = current_price - previous_close
+            data = %{
+              symbol: symbol,
+              name: company_name(symbol),
+              price: current_price,
+              change: change
+            }
+
+            BackEndWeb.Endpoint.broadcast!("stock:all", "new_price", data)
+
+          {:error, decode_error} ->
+            Logger.error("JSON decode error: #{inspect(decode_error)}")
+        end
+
+      {:ok, %HTTPoison.Response{status_code: status_code}} ->
+        Logger.error("Failed to fetch #{symbol}: HTTP #{status_code}")
 
       {:error, error} ->
-        Logger.error("Failed to decode message: #{inspect(error)}")
-        {:ok, state}
+        Logger.error("HTTP request error: #{inspect(error)}")
     end
   end
 
-  def handle_disconnect(%{reason: reason}, state) do
-    Logger.warn("Disconnected from Finnhub: #{inspect(reason)}")
-    # Attempt to reconnect after a delay
-    Process.send_after(self(), :reconnect, 5000)
-    {:ok, state}
-  end
-
-  def handle_info(:reconnect, %{parent_pid: parent_pid} = state) do
-    Logger.info("Attempting to reconnect to Finnhub")
-    {:reconnect, state}
-  end
-
-  def terminate(reason, _state) do
-    Logger.warn("WebSocket client terminated: #{inspect(reason)}")
-    :ok
-  end
+  defp company_name("AAPL"), do: "Apple Inc."
+  defp company_name("GOOGL"), do: "Alphabet Inc."
+  defp company_name("MSFT"), do: "Microsoft Corporation"
+  defp company_name(_), do: "Unknown Company"
 end
