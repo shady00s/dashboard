@@ -9,6 +9,17 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Features
+
+- Real-time stock price tracking for major companies (AAPL, MSFT, NVDA, etc.)
+- WebSocket-based communication for live updates
+- Integration with Finnhub API for market data
+- Connection management with rate limiting
+- Detailed stock information including:
+  - Current price
+  - Price change from previous close
+  - Company name
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/

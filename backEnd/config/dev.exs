@@ -13,7 +13,7 @@ config :backEnd, BackEnd.Repo,
 # For development, we disable any cache and enable
 # debugging and code reloading.
 config :backEnd, BackEndWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 4001],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

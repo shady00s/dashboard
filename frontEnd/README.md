@@ -1,38 +1,52 @@
-# sv
+# Stock Dashboard
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A responsive stock market dashboard with real-time updates and theme customization.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Dark/Light Theme Toggle**
+  - Switch between light and dark modes
+  - Theme preference persists across sessions
+  - Smooth transitions between themes
+
+- **Modern UI**
+  - Clean, responsive design
+  - Inter font family for better readability
+  - Animated card interactions
+  - Mobile-friendly layout
+
+- **Real-time Data**
+  - WebSocket connection for live stock updates
+  - Visual indicators for price changes
+  - Timestamp of last update
+
+## Development Setup
 
 ```bash
-# create a new project in the current directory
-npx sv create
+# Install dependencies
+npm install
 
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
+# Start development server
 npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
+# Build for production
 npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+## Styling Features
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- CSS variables for consistent theming
+- Responsive grid layout for stock cards
+- Enhanced button styling with hover effects
+- WCAG-compliant color contrast
+
+## Theme Configuration
+
+The theme can be toggled using the sun/moon icon in the header. The selected theme is saved in localStorage.
+
+## Deployment
+
+To deploy your app, install an appropriate [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

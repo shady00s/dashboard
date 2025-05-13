@@ -22,6 +22,8 @@
 		"vite": "^6.2.6"
 	},
 	"dependencies": {
-		"phoenix": "^1.7.21"
+		"phoenix": "^1.7.21",
+		"phoenix-channels": "^1.0.0",
+		"querystring-es3": "^0.2.1"
 	}
 }

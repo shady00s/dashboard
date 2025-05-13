@@ -12,6 +12,10 @@ defmodule BackEndWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Plug.Parsers,
+      parsers: [:json],
+      pass: ["*/*"],
+      json_decoder: Phoenix.json_library()
   end
 
   scope "/", BackEndWeb do

@@ -1,9 +1,13 @@
 defmodule BackEndWeb.RegistrationController do
   use BackEndWeb, :controller
   alias BackEnd.Accounts
-  alias BackEnd.Accounts.User
 
-  def create(conn, %{"user" => user_params}) do
+  def create(conn, params) do
+    user_params =
+      case params do
+        %{"user" => user} -> user
+        _ -> params
+      end
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
